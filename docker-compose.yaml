@@ -1,0 +1,30 @@
+services:
+  db_origem:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: origem
+    ports:
+      - 5432:5432
+    volumes:
+      - origem-volume:/var/lib/postgresql/data
+    networks:
+      - postgresStack
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 8080:80
+    networks:
+      - postgresStack
+
+volumes:
+  origem-volume:
+
+networks:
+  postgresStack:
+    driver: bridge
